@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const User = require("../model/user/userModel");
-const Otp=require("../model/user/otpModel")
 
 
 exports.userloggedIn = async function(req, res, next){

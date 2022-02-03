@@ -15,11 +15,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 let signRoutes = require("./routes/signin-routes");
 let vehicalRoutes = require("./routes/vehical-routes");
-
+let fuelRoutes = require("./routes/fuel-routes");
+let serviceRoutes=require("./routes/service-routes")
+let stationRoutes=require("./routes/servicestation-routes")
+let notificationRoutes=require("./routes/notification-route")
+let adminRoutes=require("./routes/admin-routes")
 
 var port = process.env.PORT || 2999;
-app.use("/api",signRoutes)
-app.use("/api", vehicalRoutes);
+app.use("/api",
+adminRoutes,
+signRoutes,
+fuelRoutes,
+vehicalRoutes,
+serviceRoutes,
+stationRoutes,
+notificationRoutes
+)
 app.listen(port, function () {
   console.log("Running on port " + port);
 });
