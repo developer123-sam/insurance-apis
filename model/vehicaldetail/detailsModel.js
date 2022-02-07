@@ -59,8 +59,7 @@ const vehicalSchema = new Schema({
   },
   newinsurance: {
     type: String,
-    enum: ["health", "life","corporate"],
-    default:"health"
+    enum: ["health", "life","corporate"]
   },
   active: {
     type: Boolean,
