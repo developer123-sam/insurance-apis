@@ -11,7 +11,7 @@ const servicestationSchema = new Schema({
         uniqueno:String
       },
   },
-        customermn:String,
+        number:String,
         ODOkms  :String ,
         type: String,
         Estimatequote  :String,

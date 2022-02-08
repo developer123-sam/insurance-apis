@@ -6,6 +6,7 @@ const Vehical=require("../../model/vehicaldetail/detailsModel")
 exports.addvehical=async (req,res)=>{
     try {
         const vehical=new Vehical()
+        vehical.user=req.user._id
         vehical.vehicalnumber = {
             statecode: req.body.statecode,
             citycode: req.body.citycode,
@@ -73,7 +74,7 @@ try {
 
 exports.getvehicalbyid=async (req,res)=>{
   try {
-    const vehicalbyid=await Vehical.find({})
+    const vehicalbyid=await Vehical.find({user:req.user._id})
     return res.status(200).json({msg:"get vehical by id successfully",vehicalbyid})
   } catch (error) {
     console.log(error)

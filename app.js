@@ -20,6 +20,7 @@ let serviceRoutes=require("./routes/service-routes")
 let stationRoutes=require("./routes/servicestation-routes")
 let notificationRoutes=require("./routes/notification-route")
 let adminRoutes=require("./routes/admin-routes")
+let referalRoutes=require("./routes/referal-routes")
 
 var port = process.env.PORT || 2999;
 app.use("/api",
@@ -29,7 +30,8 @@ fuelRoutes,
 vehicalRoutes,
 serviceRoutes,
 stationRoutes,
-notificationRoutes
+notificationRoutes,
+referalRoutes
 )
 app.listen(port, function () {
   console.log("Running on port " + port);

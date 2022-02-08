@@ -24,9 +24,9 @@ const Controller = require("../controller/vehical/detailController");
 const auth=require("../middleware/auth")
 
 
-router.route("/addvehical").post( imageUplods,Controller.addvehical);
+router.route("/addvehical").post( auth.userloggedIn,imageUplods,Controller.addvehical);
 router.route("/getvehical").get(Controller.getallvehical)
-router.route("/getvehicalbyid/:id").get(Controller.getvehicalbyid)
+router.route("/getvehicalbyid").get(auth.userloggedIn,Controller.getvehicalbyid)
 router.route("/updatevehicalbyid/:id").put(image.none(), Controller.updatevehicalbyid)
 router.route("/deletevehicalbyid/:id").delete(Controller.deletevehicalbyid)
 
