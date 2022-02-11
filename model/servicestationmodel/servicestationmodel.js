@@ -2,36 +2,36 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const servicestationSchema = new Schema({
-    vehicalnumber: {
-    type: 
-      {
-        statecode:String,
-        citycode:String,
-        uniqueletter:String,
-        uniqueno:String
-      },
+  vehicalnumber: {
+    type:
+    {
+      statecode: String,
+      citycode: String,
+      uniqueletter: String,
+      uniqueno: String
+    },
   },
-        number:String,
-        ODOkms  :String ,
-        type: String,
-        Estimatequote  :String,
-        estimedeldt:String,
-        fuellevel  :String,
-nextvisitubtervals  : {
-    type: 
-      {
-        kms:String,
-        month:String,
-      },
+  number: String,
+  ODOkms: String,
+  type: String,
+  Estimatequote: String,
+  estimedeldt: String,
+  fuellevel: String,
+  nextvisitubtervals: {
+    type:
+    {
+      kms: String,
+      month: String,
+    },
   },
-        notes:  String,
-active: {
-        type: Boolean,
-        default: true,
+  notes: String,
+  active: {
+    type: Boolean,
+    default: true,
   },
-modifiedOn: {
-        type: Date,
-        default: Date.now,
+  modifiedOn: {
+    type: Date,
+    default: Date.now,
   },
 });
 

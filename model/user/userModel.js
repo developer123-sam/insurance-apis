@@ -20,6 +20,10 @@ const userSchema = new Schema(
   },tokens: {
     type: String,
   },
+  isRegisterd:{
+    type:Boolean,
+    default:false
+  },
   image:{
     type:String
   }
