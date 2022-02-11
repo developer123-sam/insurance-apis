@@ -123,7 +123,7 @@ exports.adduser = async (req, res) => {
 
 exports.updateuser = async (req, res) => {
   const { number, username, email, postaladdress, alternativepno } = req.body;
-  var url = "http://localhost:2999/api/upload/Image"
+  var url = "https://health-insuranceapp.herokuapp.com/api/upload/Image"
   const profileImage = req.file ? req.file.filename : null;
   try {
     const update = await User.findByIdAndUpdate(req.params.id, {
@@ -132,7 +132,7 @@ exports.updateuser = async (req, res) => {
       number,
       postaladdress,
       alternativepno,
-      image: `${url}/ ${profileImage}`,
+      image: `${url}/${profileImage}`,
     });
     console.log(email)
     const view = await User.findById(req.params.id);
