@@ -87,7 +87,7 @@ exports.verifyOtp = async (req, res) => {
       const OTPDelete = await Otp.deleteOne({
         number: number
       });
-      return res.status(200).json({ msg: "user login successfully", token });
+      return res.status(200).json({ msg: "user login successfully", token, user });
     }
   } catch (error) {
     console.log(error)

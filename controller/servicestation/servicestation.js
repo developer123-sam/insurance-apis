@@ -119,13 +119,13 @@ exports.stationlogin = async (req, res) => {
     }
     if (newotp) {
       var number = req.body.number;
-      let user = await Station.findOne({ number });
-      console.log(user.number)
-      const token = createToken(user);
+      let station = await Station.findOne({ number });
+      console.log(station.number)
+      const token = createToken(station);
       const OTPDelete = await Otp.deleteOne({
         number: number
       });
-      return res.status(200).json({ msg: "user login successfully", token });
+      return res.status(200).json({ msg: "user login successfully", token, station });
     }
   } catch (error) {
     console.log(error)
