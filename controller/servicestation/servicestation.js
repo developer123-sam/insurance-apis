@@ -8,12 +8,11 @@ const jwt = require("jsonwebtoken");
 require('dotenv').config();
 
 
-// const createToken = (station) => {
-//   return jwt.sign({ station }, process.env.PROCESS_KEY, {
-//     expiresIn: "7d",
-//   });
-// };
-
+const createToken = (station) => {
+  return jwt.sign({ station }, process.env.PROCESS_KEY, {
+    expiresIn: "7d",
+  });
+};
 
 // ADD SERVICE STATION
 
@@ -109,10 +108,10 @@ exports.stationotp = async (req, res) => {
   }
 }
 
+
 exports.stationlogin = async (req, res) => {
   try {
     var { number, otp } = req.body;
-
     let newotp = await Otp.findOne({ number: number, otp: otp });
     if (!newotp) {
       return res.status(400).json({ errors: 'wrong otp' })
@@ -120,7 +119,7 @@ exports.stationlogin = async (req, res) => {
     if (newotp) {
       var number = req.body.number;
       let station = await Station.findOne({ number });
-      console.log(station.number)
+      console.log(station)
       const token = createToken(station);
       const OTPDelete = await Otp.deleteOne({
         number: number

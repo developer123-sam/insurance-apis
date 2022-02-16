@@ -2,7 +2,7 @@ let router = require("express").Router();
 var Controller = require("../controller/notificationController");
 var auth = require("../middleware/auth")
 
-// FUEL-ROUTES
+// NOTIFICATION-ROUTES
 
 router.route("/notification").post(auth.userloggedIn, Controller.notification)
 router.route("/getnotification").get(auth.userloggedIn, Controller.getnotification)
