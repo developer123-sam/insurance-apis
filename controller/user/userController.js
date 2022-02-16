@@ -7,6 +7,8 @@ const sendSms = require('../../twilio');
 const otpGenerator = require('otp-generator');
 const jwt = require("jsonwebtoken");
 require('dotenv').config();
+
+
 const createToken = (user) => {
   return jwt.sign({ user }, process.env.PROCESS_KEY, {
     expiresIn: "7d",
@@ -79,15 +81,16 @@ exports.verifyOtp = async (req, res) => {
     if (!newotp) {
       return res.status(400).json({ errors: 'wrong otp' })
     }
+    console.log(number)
     if (newotp) {
       var number = req.body.number;
-      let user = await User.findOne({ number });
-      console.log(user)
-      const token = createToken(user);
+      let station = await User.findOne({ number });
+      console.log(station)
+      const token = createToken(station);
       const OTPDelete = await Otp.deleteOne({
         number: number
       });
-      return res.status(200).json({ msg: "user login successfully", token, user });
+      return res.status(200).json({ msg: "user login successfully", token, station });
     }
   } catch (error) {
     console.log(error)
