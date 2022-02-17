@@ -6,6 +6,7 @@ exports.addservice = async (req, res) => {
   try {
     const billImage = req.file ? req.file.filename : null;
     const service = new Service()
+    service.user = req.user._id
     service.date = req.body.date
     service.price = req.body.price
     service.ODOkms = req.body.ODOkms
@@ -32,7 +33,7 @@ exports.addservice = async (req, res) => {
 
 exports.getallservice = async (req, res) => {
   try {
-    const getallservice = await Service.find({})
+    const getallservice = await Service.find({ user: req.user._id })
     res.json({
       message: "service get Successfully",
       data: getallservice,
@@ -84,12 +85,12 @@ exports.updateservicebyid = async (req, res) => {
 
 // DELETE FUEL BY ID
 
-exports.deleteservicebyid = async (req, res) => {
+exports.deleteservice = async (req, res) => {
   try {
-    const deleteservicebyid = await Service.findByIdAndDelete({ _id: req.params.id })
+    const deleteservice = await Service.deleteOne({ user: req.user._id })
     res.json({
       message: "service delete by id Successfully",
-      data: deleteservicebyid,
+      data: deleteservice,
     });
   } catch (error) {
     console.log(error)
