@@ -118,9 +118,9 @@ exports.stationlogin = async (req, res) => {
     }
     if (newotp) {
       var number = req.body.number;
-      let station = await Station.findOne({ number });
-      console.log(station)
-      const token = createToken(station);
+      let user = await Station.findOne({ number });
+      console.log(user)
+      const token = createToken(user);
       const OTPDelete = await Otp.deleteOne({
         number: number
       });
