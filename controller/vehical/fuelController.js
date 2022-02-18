@@ -14,6 +14,7 @@ exports.addfuel = async (req, res) => {
     fuel.notes = req.body.notes
     fuel.tankfull = req.body.tankfull
     fuel.uploadbill = billImage
+    fuel.vehicle = req.body.vehicle
     fuel.save(function (err) {
       if (err) {
         console.log(err);
@@ -47,9 +48,9 @@ exports.getallfuel = async (req, res) => {
 
 // GET FUEL BY ID
 
-exports.getfuelbyid = async (req, res) => {
+exports.getfuelreportbyvehicleid = async (req, res) => {
   try {
-    const getfuelbyid = await Fuel.findById({ _id: req.params.id })
+    const getfuelbyid = await Fuel.find({ vehicle: req.params.id })
     res.json({
       message: "Fuel get by id Successfully",
       data: getfuelbyid,

@@ -34,6 +34,10 @@ const fuelSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: "user"
+    },
+    vehicle: {
+        type: Schema.Types.ObjectId,
+        ref: "vehical"
     }
 });
 

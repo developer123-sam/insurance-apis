@@ -15,7 +15,7 @@ var auth = require("../middleware/auth")
 
 router.route("/addfuel").post(image.single("uploadbill"), auth.userloggedIn, Controller.addfuel)
 router.route("/getallfuel").get(auth.userloggedIn, Controller.getallfuel)
-router.route("/getfuelbyid/:id").get(Controller.getfuelbyid)
+router.route("/getfuelreportbyvehicleid/:id").get(Controller.getfuelreportbyvehicleid)
 router.route("/updatefuelbyid/:id").put(image.single("uploadbill"), Controller.updatefuelbyid)
 router.route("/deletefuel").delete(auth.userloggedIn, Controller.deletefuel)
 

@@ -24,6 +24,7 @@ let adminRoutes = require("./routes/admin-routes")
 let referalRoutes = require("./routes/referal-routes")
 let insuranceRoutes = require("./routes/insurance-routes")
 let documentRoutes = require("./routes/document-routes")
+let shareroutes = require("./routes/share-routes")
 
 var port = process.env.PORT || 2999;
 app.use("/api",
@@ -36,7 +37,8 @@ app.use("/api",
   notificationRoutes,
   referalRoutes,
   insuranceRoutes,
-  documentRoutes
+  documentRoutes,
+  shareroutes
 )
 app.listen(port, function () {
   console.log("Running on port " + port);

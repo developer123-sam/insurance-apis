@@ -1,4 +1,5 @@
 const Vehical = require("../model/vehical-model")
+const Share = require("../model/shareModel")
 
 
 // ADD VEHICAL 
@@ -70,48 +71,39 @@ exports.addvehical = async (req, res) => {
 // }
 // }
 
-// // GET VEHICAL BY ID
+// // GET VEHICAL 
 
 exports.getvehical = async (req, res) => {
     try {
-        const getvehical = await Vehical.find({ user: req.user._id })
-        return res.status(200).json({ msg: "get vehical successfully", getvehical })
+        console.log(req.user._id)
+        const getvehical = await Vehical.find({
+            user: req.user._id
+        })
+        const vehicalShared = await Share.find({
+            shareby: req.user._id
+        })
+        // console.log(vehicalShared)
+        const vehicalSharedid = vehicalShared.map((getvehical) => {
+            return getvehical.shareddId
+        })
+        console.log(vehicalSharedid)
+        const vehicalfind = await Vehical.find({
+            _id: {
+                $in: vehicalSharedid
+            }
+
+        })
+        console.log(vehicalfind)
+
+        const findvehical = [...getvehical, ...vehicalfind]
+        return res.status(200).json({ msg: "get vehical successfully", vehicalfind })
     } catch (error) {
         console.log(error)
         return res.status(400).json({ msg: "something went wrong", error: error.message })
     }
 }
 
-// exports.updatevehicalbyid=async (req,res)=>{
-//     const { statecode,citycode,uniqueletter,uniqueno,incdate,rcdate,modeldate,emissiondate,documentname,documentremark,documentdate,insuranceid,insurancename,insurancedate } = req.body;
-//     try {
-//       console.log('statecode: ', statecode)
-//       const vehicle = await Vehical.findById(req.params.id);
-//       vehicle.vehicalnumber.statecode = statecode;
-//       vehicle.vehicalnumber.citycode = citycode;
-//       vehicle.vehicalnumber.uniqueletter = uniqueletter;
-//       vehicle.vehicalnumber.uniqueno = uniqueno;
-//       vehicle.addinc.incdate = incdate;
-//       vehicle.addrc.rcdate = rcdate;
-//       vehicle.modelnumber.modeldate = modeldate;
-//       vehicle.addemission.emissiondate = emissiondate;
-//       vehicle.adddocument.documentname = documentname;
-//       vehicle.adddocument.documentdate = documentdate;
-//       vehicle.adddocument.documentremark = documentremark;
-//       vehicle.addinsurance.insuranceid = insuranceid;
-//       vehicle.addinsurance.insurancename = insurancename;
-//       vehicle.addinsurance.insurancedate = insurancedate;
-//       await vehicle.save();
-//         res.json({
-//           message: " update vehical detail successfully",
-//           data: vehicle,
-//         });
-//         console.log(`updated value is${vehicle}`)
-//        } catch (error) {
-//       console.log(error);
-//      return res.status(400).json({error:error.message})
-//     }
-//   };
+
 
 exports.deletevehical = async (req, res) => {
     try {

@@ -13,6 +13,7 @@ exports.addservice = async (req, res) => {
     service.type = req.body.type
     service.notes = req.body.notes
     service.uploadbill = billImage
+    service.vehicle = req.body.vehicle
     service.save(function (err) {
       if (err) {
         console.log(err);
@@ -48,7 +49,7 @@ exports.getallservice = async (req, res) => {
 
 exports.getservicebyid = async (req, res) => {
   try {
-    const getservicebyid = await Service.findById({ _id: req.params.id })
+    const getservicebyid = await Service.find({ vehicle: req.params.id })
     res.json({
       message: "Service get by id Successfully",
       data: getservicebyid,
