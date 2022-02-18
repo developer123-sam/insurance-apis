@@ -7,21 +7,34 @@ const shareSchema = new Schema({
         required: true,
         ref: 'user',
     },
+    name: {
+        type: String,
+        required: true
+    },
     shareto: {
         type: String,
         required: true,
-        ref: "user"
     },
-    shareddId: {
+    document: {
         type: Schema.Types.ObjectId,
-        required: true,
-        refPath: 'vehicalModel'
+        ref: "document"
     },
-    vehicalModel: {
-        type: String,
-        required: true,
-        enum: ['document', 'vehical', "insurance"],
+    vehical: {
+        type: Schema.Types.ObjectId,
+        ref: "vehical"
     },
+    insurance: {
+        type: Schema.Types.ObjectId,
+        ref: "insurance"
+    }
+    //     required: true,
+    //     refPath: 'vehicalModel'
+    // },
+    // vehicalModel: {
+    //     type: String,
+    //     required: true,
+    //     enum: ['document', 'vehical', "insurance"],
+    // },
 },
     {
         timestamps: true
