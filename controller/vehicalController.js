@@ -75,28 +75,26 @@ exports.addvehical = async (req, res) => {
 
 exports.getvehical = async (req, res) => {
     try {
-        console.log(req.user._id)
-        const getvehical = await Vehical.find({
-            user: req.user._id
-        })
-        const vehicalShared = await Share.find({
-            shareby: req.user._id
-        })
-        // console.log(vehicalShared)
-        const vehicalSharedid = vehicalShared.map((getvehical) => {
-            return getvehical.shareddId
-        })
-        console.log(vehicalSharedid)
-        const vehicalfind = await Vehical.find({
-            _id: {
-                $in: vehicalSharedid
-            }
+        // console.log(req.user._id)
+        const getvehical = await Vehical.find({})
+        // const vehicalShared = await Share.find({
+        //     shareby: req.user._id
+        // })
+        // // console.log(vehicalShared)
+        // const vehicalSharedid = vehicalShared.map((getvehical) => {
+        //     return getvehical.shareddId
+        // })
+        // console.log(vehicalSharedid)
+        // const vehicalfind = await Vehical.find({
+        //     _id: {
+        //         $in: vehicalSharedid
+        //     }
 
-        })
-        console.log(vehicalfind)
+        // })
+        // console.log(vehicalfind)
 
-        const findvehical = [...getvehical, ...vehicalfind]
-        return res.status(200).json({ msg: "get vehical successfully", vehicalfind })
+        // const findvehical = [...getvehical, ...vehicalfind]
+        return res.status(200).json({ msg: "get vehical successfully", getvehical })
     } catch (error) {
         console.log(error)
         return res.status(400).json({ msg: "something went wrong", error: error.message })

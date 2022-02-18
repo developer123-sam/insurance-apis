@@ -8,7 +8,7 @@ const shareSchema = new Schema({
         ref: 'user',
     },
     shareto: {
-        type: Schema.Types.ObjectId,
+        type: String,
         required: true,
         ref: "user"
     },
@@ -20,7 +20,7 @@ const shareSchema = new Schema({
     vehicalModel: {
         type: String,
         required: true,
-        enum: ['document', 'vehical'],
+        enum: ['document', 'vehical', "insurance"],
     },
 },
     {
