@@ -1,28 +1,49 @@
 const Share = require("../model/shareModel")
 const Vehicle = require("../model/vehical-model")
-
+const User = require("../model/user/userModel")
 // SHARE_POST
 
 exports.share = async (req, res) => {
     try {
-        const share = new Share(req.body);
-        share.shareby = req.user._id
-        share.save()
-        return res.status(200).json({ msg: "share successfullly" })
+        const shareto = req.body.shareto;
+        const checkUser = await User.findOne({
+            number: shareto
+        });
+        if (checkUser) {
+            let share = await Share.findOne({ shareto: req.body.shareto });
+
+            if (!share) {
+                share = new Share(req.body);
+            }
+            console.log(share.document)
+            console.log(share.vehical)
+            console.log(share.insurance)
+            share.document.addToSet(req.body.document);
+            share.vehical.addToSet(req.body.vehical);
+            share.insurance.addToSet(req.body.insurance);
+            share.user = req.user._id
+            await share.save();
+            return res.status(200).json({ msg: "share successfully", share })
+        }
+        else {
+            return res.json({ msg: "number not register please share the details with register number" })
+        }
+
     } catch (error) {
-        console.log(error)
-        return res.status(400).json({ msg: "something went wrong" })
+        console.log(error);
+        return res.status(400).json({ msg: "something went wrong", error: error.message })
     }
 }
+
 
 // GET-SHARE-POST-document
 
 exports.sharedocument = async (req, res) => {
     try {
-        const getdocument = await Share.find({})
-            .populate("insurance")
+        const getdocument = await Share.find({}, { document: 1 })
+
             .populate("document")
-            .populate("vehical")
+
         return res.status(200).json({ msg: "get share document ", getdocument })
     } catch (error) {
         console.log(error)
@@ -34,7 +55,7 @@ exports.sharedocument = async (req, res) => {
 
 exports.sharevehicle = async (req, res) => {
     try {
-        const sharevehicle = await Share.find({ "vehicalModel": "vehical" })
+        const sharevehicle = await Share.find({}, { vehical: 1 }).populate("vehical")
         return res.status(200).json({ msg: "get share vehical ", sharevehicle })
     } catch (error) {
         console.log(error)
@@ -46,7 +67,7 @@ exports.sharevehicle = async (req, res) => {
 
 exports.shareinsurance = async (req, res) => {
     try {
-        const shareinsurance = await Share.find({ "vehicalModel": "insurance" })
+        const shareinsurance = await Share.find({}, { insurance: 1 }).populate("insurance")
         return res.status(200).json({ msg: "get share insurance ", shareinsurance })
     } catch (error) {
         console.log(error)
@@ -59,6 +80,9 @@ exports.shareinsurance = async (req, res) => {
 exports.getshare = async (req, res) => {
     try {
         const shareinsurance = await Share.find({})
+            .populate("document")
+            .populate("vehical")
+            .populate("insurance")
         return res.status(200).json({ msg: "get share insurance ", shareinsurance })
     } catch (error) {
         console.log(error)

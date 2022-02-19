@@ -4,7 +4,6 @@ const Schema = mongoose.Schema
 const shareSchema = new Schema({
     shareby: {
         type: Schema.Types.ObjectId,
-        required: true,
         ref: 'user',
     },
     name: {
@@ -16,16 +15,19 @@ const shareSchema = new Schema({
         required: true,
     },
     document: {
-        type: Schema.Types.ObjectId,
-        ref: "document"
+        type: [Schema.Types.ObjectId],
+        ref: 'document',
+        default: [],
     },
     vehical: {
-        type: Schema.Types.ObjectId,
-        ref: "vehical"
+        type: [Schema.Types.ObjectId],
+        ref: 'vehical',
+        default: [],
     },
     insurance: {
-        type: Schema.Types.ObjectId,
-        ref: "insurance"
+        type: [Schema.Types.ObjectId],
+        ref: 'insurance',
+        default: [],
     }
     //     required: true,
     //     refPath: 'vehicalModel'
