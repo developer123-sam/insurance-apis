@@ -10,7 +10,10 @@ exports.share = async (req, res) => {
             number: shareto
         });
         if (checkUser) {
-            let share = await Share.findOne({ shareto: req.body.shareto });
+            let share = await Share.findOne({
+                shareto: req.body.shareto,
+                shareby: req.user._id
+            });
 
             if (!share) {
                 share = new Share(req.body);
@@ -18,10 +21,10 @@ exports.share = async (req, res) => {
             console.log(share.document)
             console.log(share.vehical)
             console.log(share.insurance)
-            share.document.addToSet(req.body.document);
-            share.vehical.addToSet(req.body.vehical);
-            share.insurance.addToSet(req.body.insurance);
-            share.shareby = req.user._id
+            share.document.addToSet(...req.body.document);
+            share.vehical.addToSet(...req.body.vehical);
+            share.insurance.addToSet(...req.body.insurance);
+
             await share.save();
             return res.status(200).json({ msg: "share successfully", share })
         }
