@@ -59,17 +59,7 @@ exports.addvehical = async (req, res) => {
 }
 
 
-//GET ALL VEHICAL DATA
 
-// exports.getallvehical=async (req,res)=>{
-// try {
-//   const allvehical=await Vehical.find({})
-//   return res.status(200).json({msg:"get all vehical successfully",allvehical})
-// } catch (error) {
-//   console.log(error)
-//   return res.status(400).json({msg:"something went wrong",error:error.message})
-// }
-// }
 
 // // GET VEHICAL 
 
