@@ -124,7 +124,7 @@ exports.stationlogin = async (req, res) => {
       const OTPDelete = await Otp.deleteOne({
         number: number
       });
-      return res.status(200).json({ msg: "user login successfully", token, user });
+      return res.status(200).json({ msg: "station login successfully", token, user });
     }
   } catch (error) {
     console.log(error)
