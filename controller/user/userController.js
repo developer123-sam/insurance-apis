@@ -78,7 +78,6 @@ exports.verifyOtp = async (req, res) => {
   try {
     const { number, otp } = req.body;
     if(number){
-      console.log("adbshfsdyf")
       const checkUser = await Station.findOne({ number: number });
       if (checkUser) {
           return res.status(400).json({
@@ -95,7 +94,7 @@ exports.verifyOtp = async (req, res) => {
       let station = await User.findOne({ number });
       console.log(station)
       const token = createToken(station);
-      const OTPDelete = await Otp.deleteOne({
+      const OTPDelete = await Otp.deleteMany({
         number: number
       });
       return res.status(200).json({ msg: "user login successfully", token, station });
