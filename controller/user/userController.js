@@ -76,14 +76,22 @@ exports.sendotp = async (req, res) => {
 
 exports.verifyOtp = async (req, res) => {
   try {
-    var { number, otp } = req.body;
+    const { number, otp } = req.body;
+    if(number){
+      console.log("adbshfsdyf")
+      const checkUser = await Station.findOne({ number: number });
+      if (checkUser) {
+          return res.status(400).json({
+              errors: [{ msg: "please provide a right user number" }]
+          });
+    }else{
+     
     let newotp = await Otp.findOne({ number: number, otp: otp });
     if (!newotp) {
       return res.status(400).json({ errors: 'wrong otp' })
     }
     console.log(number)
     if (newotp) {
-      var number = req.body.number;
       let station = await User.findOne({ number });
       console.log(station)
       const token = createToken(station);
@@ -92,6 +100,8 @@ exports.verifyOtp = async (req, res) => {
       });
       return res.status(200).json({ msg: "user login successfully", token, station });
     }
+  }
+}
   } catch (error) {
     console.log(error)
     return res.status(400).json({ errors: [{ msg: "Token Expired" }] });
